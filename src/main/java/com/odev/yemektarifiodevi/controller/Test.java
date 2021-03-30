@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Test {
     @GetMapping
     public String deneme(){
-        return "MEHMET";
+        return "Herkes";
     }
 
     @GetMapping("/grkn")
@@ -24,6 +24,9 @@ public class Test {
     public String tburakg(){
         return "hi tburakg";
     }
-
+    @GetMapping("/ek")
+    public String ek(){
+        return "ek mek";
+    }
 
 }
