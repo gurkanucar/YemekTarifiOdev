@@ -28,5 +28,9 @@ public class Test {
     public String ek(){
         return "ek mek";
     }
+    @GetMapping("/mkayac")
+    public String mkayac(){
+        return "Selam mkayac";
+    }
 
 }
