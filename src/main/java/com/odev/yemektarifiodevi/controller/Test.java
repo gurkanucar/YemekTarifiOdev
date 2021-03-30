@@ -16,6 +16,10 @@ public class Test {
     public String grkn(){
         return "selam grkn";
     }
+    @GetMapping("/atkn")
+    public String atkn(){
+        return "hi atkn";
+    }
 
 
 }
