@@ -20,6 +20,7 @@ public class Test {
     public String atkn(){
         return "hi atkn";
     }
+
     @GetMapping("/tburakg")
     public String tburakg(){
         return "hi tburakg";
@@ -28,9 +29,15 @@ public class Test {
     public String ek(){
         return "ek mek";
     }
+
     @GetMapping("/mkayac")
     public String mkayac(){
         return "Selam mkayac";
+    }
+
+    @GetMapping("/ozan")
+    public String ozan(){
+        return "ozan back-end'te marka";
     }
 
 }
