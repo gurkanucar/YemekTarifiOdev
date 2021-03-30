@@ -20,6 +20,10 @@ public class Test {
     public String atkn(){
         return "hi atkn";
     }
+    @GetMapping("/tburakg")
+    public String tburakg(){
+        return "hi tburakg";
+    }
 
 
 }
