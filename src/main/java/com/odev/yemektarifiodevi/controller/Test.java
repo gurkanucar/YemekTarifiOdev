@@ -11,4 +11,11 @@ public class Test {
     public String deneme(){
         return "MEHMET";
     }
+
+    @GetMapping("/grkn")
+    public String grkn(){
+        return "selam grkn";
+    }
+
+
 }
