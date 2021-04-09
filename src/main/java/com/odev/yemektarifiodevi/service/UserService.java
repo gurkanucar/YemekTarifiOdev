@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface UserService {
-    User getByID (int ID);
+    User getByID (Long ID);
     List<User> getUsers();
+
 
 }
