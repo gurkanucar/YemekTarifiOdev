@@ -38,6 +38,11 @@ public class Test {
         return "ozan back-end'te marka";
     }
 
+    @GetMapping("/oguz")
+    public String oguz(){
+        return "en sevigim hoca emir hocacim";
+    }
+
 
 
 }
