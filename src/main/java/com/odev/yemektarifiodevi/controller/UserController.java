@@ -1,6 +1,8 @@
 package com.odev.yemektarifiodevi.controller;
 
 import com.odev.yemektarifiodevi.model.User;
+import com.odev.yemektarifiodevi.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,9 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
+    @Autowired
+    UserService userService;
+
     @GetMapping
     public User getUser(){
        return new User("gurkan","grknn","grkn@hotmail.com",25);
@@ -22,15 +27,7 @@ public class UserController {
 
     @GetMapping("/all")
     public List<User> getUsers(){
-        List<User> userList=new ArrayList<>();
-
-        userList.add(new User("gurkan","grknn","grkn@hotmail.com",25));
-        userList.add(new User("atkn","atkn17","atkn@hotmail.com",26));
-        userList.add(new User("burak","tburakg","burak@hotmail.com",23));
-        userList.add(new User("mehmet","kayam17","mehmet@hotmail.com",21));
-        userList.add(new User("enes","eksgl1","enes@hotmail.com",22));
-        userList.add(new User("oguz","sirogzzz","oguz@hotmail.com",23));
-        return userList;
+        return userService.getUsers();
     }
 
 

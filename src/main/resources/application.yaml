@@ -8,8 +8,6 @@ server:
       force: true
 
 spring:
-  jackson:
-    default-property-inclusion: non_null
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/yemektarifiodev?useUnicode=true&characterEncoding=UTF-8&verifyServerCertificate=false&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
