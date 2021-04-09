@@ -1,9 +1,19 @@
 package com.odev.yemektarifiodevi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.sql.Timestamp;
+
+@Entity
 @Data
-public class User {
+public class User extends BaseEntity{
     private String name;
     private String username;
     private int age;
@@ -18,6 +28,5 @@ public class User {
 
     public User() {
     }
-
 
 }

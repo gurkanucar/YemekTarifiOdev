@@ -21,6 +21,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
     @GetMapping
     public User getUser() {
         return new User("gurkan", "grknn", "grkn@hotmail.com", 25);
@@ -33,7 +34,7 @@ public class UserController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUsers(@PathVariable int id) {
+    public User getUsers(@PathVariable int id) {
         return userService.getByID(id);
 
 
