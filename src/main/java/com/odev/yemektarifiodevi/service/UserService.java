@@ -9,6 +9,9 @@ import java.util.List;
 public interface UserService {
     User getByID (Long ID);
     List<User> getUsers();
+    User deleteUserById (Long ID);
+
+
 
 
 }

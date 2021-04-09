@@ -26,4 +26,18 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsers() {
         return userRepo.findAll();
     }
+
+    @Override
+    public User deleteUserById(Long ID) {
+
+        User existingUser = userRepo.findById(ID).orElse(null);
+        if(existingUser != null){
+            existingUser.setDeleted(true);
+        }
+        else{
+            return null;
+        }
+
+        return userRepo.save(existingUser);
+    }
 }
