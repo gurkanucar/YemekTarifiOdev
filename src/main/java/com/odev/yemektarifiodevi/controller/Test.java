@@ -44,5 +44,13 @@ public class Test {
     }
 
 
+    @GetMapping("/selamver/{isim}")
+    public String selamver(@PathVariable String isim){
+        return "Selamlar "+isim;
+    }
+
+
+
+
 
 }
