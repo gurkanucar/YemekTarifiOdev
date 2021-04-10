@@ -1,6 +1,7 @@
 package com.odev.yemektarifiodevi.service;
 
 import com.odev.yemektarifiodevi.model.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ public interface UserService {
     User getByID (Long ID);
     List<User> getUsers();
     User deleteUserById (Long ID);
+    User createUser(User user);
 
 
 

@@ -40,5 +40,12 @@ public class UserController {
         return userService.deleteUserById(id);
     }
 
+    @PostMapping
+    public User createUser(@RequestBody User user){
+        return userService.createUser(user);
+
+    }
+
+
 
 }
