@@ -2,6 +2,7 @@ package com.odev.yemektarifiodevi.model.food;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.odev.yemektarifiodevi.model.BaseEntity;
+import com.odev.yemektarifiodevi.model.FileModel;
 import com.odev.yemektarifiodevi.model.user.User;
 import lombok.Data;
 import org.hibernate.annotations.Where;
@@ -21,8 +22,8 @@ public class Food extends BaseEntity {
     @OneToMany
     private List<Category> categoryList;
 
-    //@OneToMany
-    //private List<FileModel> imageList;
+
+    private FileModel image;
 
     private Long completedCount;
     private Double rankStar;

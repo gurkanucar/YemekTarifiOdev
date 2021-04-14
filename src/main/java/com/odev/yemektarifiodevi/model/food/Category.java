@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.Entity;
+import java.io.File;
 
 @Data
 @Entity
@@ -12,6 +13,6 @@ import javax.persistence.Entity;
 public class Category extends BaseEntity {
     private String nameTurkish;
     private String nameEnglish;
-    //private File categoryImage;
+    private File categoryImage;
 
 }

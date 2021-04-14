@@ -3,6 +3,7 @@ package com.odev.yemektarifiodevi.model.answer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.odev.yemektarifiodevi.model.BaseEntity;
+import com.odev.yemektarifiodevi.model.FileModel;
 import com.odev.yemektarifiodevi.model.comment.Comment;
 import com.odev.yemektarifiodevi.model.user.User;
 import lombok.Data;
@@ -27,8 +28,8 @@ public class Answer extends BaseEntity {
     @JsonIgnore
     private Comment comment;
 
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    @OneToMany
-//    FileModel image;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToMany
+    FileModel image;
 
 }

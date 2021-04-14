@@ -3,6 +3,7 @@ package com.odev.yemektarifiodevi.model.comment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.odev.yemektarifiodevi.model.BaseEntity;
+import com.odev.yemektarifiodevi.model.FileModel;
 import com.odev.yemektarifiodevi.model.food.Food;
 import com.odev.yemektarifiodevi.model.user.User;
 import lombok.Data;
@@ -25,7 +26,7 @@ public class Comment extends BaseEntity {
     @JsonIgnore
     private Food food;
 
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    //@OneToOne
-    //FileModel image;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne
+    FileModel image;
 }
