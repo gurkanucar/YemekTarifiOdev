@@ -29,7 +29,7 @@ public class Answer extends BaseEntity {
     private Comment comment;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany
-    FileModel image;
+    @OneToOne
+    private FileModel image;
 
 }

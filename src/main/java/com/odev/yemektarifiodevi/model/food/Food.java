@@ -22,7 +22,8 @@ public class Food extends BaseEntity {
     @OneToMany
     private List<Category> categoryList;
 
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne
     private FileModel image;
 
     private Long completedCount;

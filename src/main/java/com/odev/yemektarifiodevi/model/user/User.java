@@ -1,6 +1,7 @@
 package com.odev.yemektarifiodevi.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.odev.yemektarifiodevi.model.BaseEntity;
 import com.odev.yemektarifiodevi.model.FileModel;
 import com.odev.yemektarifiodevi.model.food.Food;
@@ -39,6 +40,7 @@ public class User extends BaseEntity {
     @OneToMany
     private List<Food> savedRecipes;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne
     private FileModel profilePhoto;
 
