@@ -13,6 +13,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "`answer`")
 @Where(clause = "deleted = false")
 public class Answer extends BaseEntity {
 
