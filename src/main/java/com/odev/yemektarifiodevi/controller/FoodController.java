@@ -15,28 +15,28 @@ public class FoodController {
 
 
     @GetMapping
-   private ResponseEntity getAll(){
+    public ResponseEntity getAll(){
        return foodService.getAllFoods();
    }
 
    @PostMapping
-    private ResponseEntity create(@RequestBody Food food){
+   public ResponseEntity create(@RequestBody Food food){
         return foodService.createFood(food);
    }
 
    @GetMapping("/{id}")
-    private ResponseEntity getById(@PathVariable Long id){
+   public ResponseEntity getById(@PathVariable Long id){
         return foodService.getById(id);
    }
 
     @GetMapping("/userID/{id}")
-    private ResponseEntity getByUserId(@PathVariable Long id){
+    public ResponseEntity getByUserId(@PathVariable Long id){
         return foodService.getFoodsByUserId(id);
     }
 
 
    @DeleteMapping("/{id}")
-   private ResponseEntity deleteById(@PathVariable Long id){
+   public ResponseEntity deleteById(@PathVariable Long id){
        return foodService.deleteById(id);
    }
 
