@@ -14,4 +14,5 @@ public interface FoodService {
     ResponseEntity getById(Long id);
     ResponseEntity getAllFoods();
     ResponseEntity deleteById(Long id);
+    ResponseEntity getFoodsByUserId(Long id);
 }

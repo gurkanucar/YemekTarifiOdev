@@ -2,7 +2,9 @@ package com.odev.yemektarifiodevi.service.food;
 
 import com.odev.yemektarifiodevi.model.food.Category;
 import com.odev.yemektarifiodevi.model.food.Food;
+import com.odev.yemektarifiodevi.model.user.User;
 import com.odev.yemektarifiodevi.repository.FoodRepository;
+import com.odev.yemektarifiodevi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +14,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @Service
-public class FoodServiceImpl implements FoodService{
+public class FoodServiceImpl implements FoodService {
 
     @Autowired
     private FoodRepository foodRepo;
+
+    @Autowired
+    private UserRepository userRepo;
 
     @Override
     public ResponseEntity<Food> createFood(Food food) {
@@ -42,12 +47,16 @@ public class FoodServiceImpl implements FoodService{
     }
 
 
-
     @Override
     public ResponseEntity<Food> deleteById(Long id) {
         Food food = foodRepo.findById(id).orElse(null);
         if (food == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         food.setDeleted(true);
         return new ResponseEntity<>(foodRepo.save(food), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity getFoodsByUserId(Long id) {
+        return new ResponseEntity(foodRepo.findAllByUserId(id), HttpStatus.OK);
     }
 }
