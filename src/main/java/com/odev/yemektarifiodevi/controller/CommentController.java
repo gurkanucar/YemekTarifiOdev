@@ -7,9 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-
 @RequestMapping("/api/comment")
-
 public class CommentController {
 
     @Autowired
@@ -24,7 +22,6 @@ public class CommentController {
     public ResponseEntity getById(@PathVariable Long id) {
         return commentService.getById(id);
     }
-
 
     @PostMapping("/foodID/{id}")
     public ResponseEntity create(@PathVariable Long id, @RequestBody Comment comment) {
