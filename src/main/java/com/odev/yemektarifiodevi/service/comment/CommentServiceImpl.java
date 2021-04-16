@@ -2,6 +2,7 @@ package com.odev.yemektarifiodevi.service.comment;
 
 import com.odev.yemektarifiodevi.model.comment.Comment;
 import com.odev.yemektarifiodevi.model.dtos.CommentDTO;
+import com.odev.yemektarifiodevi.model.food.Food;
 import com.odev.yemektarifiodevi.repository.CommentRepository;
 import com.odev.yemektarifiodevi.repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,13 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public ResponseEntity<CommentDTO> createComment(Long foodID, Comment comment) {
-        comment.setFood(foodRepo.findById(foodID).get());
-        return new ResponseEntity<>(convertCommentToDTO(commentRepo.save(comment)), HttpStatus.OK);
+        Food food= foodRepo.findById(foodID).orElse(null);
+
+        if(food!=null){
+            comment.setFood(food);
+            return new ResponseEntity<>(convertCommentToDTO(commentRepo.save(comment)), HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     @Override
