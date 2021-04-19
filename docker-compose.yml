@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  yemektarifiodev-jdbc:
+    image: yemektarifiodev-jdbc
+    networks:
+      - yemektarifiodev-mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb/yemektarifiodev?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&verifyServerCertificate=false&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "1234"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:8
+    networks:
+      - yemektarifiodev-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=yemektarifiodev
+
+networks:
+  yemektarifiodev-mysql:

@@ -3,7 +3,7 @@ docker run --rm -it yemektarifiodev
 docker-compose down --rmi all
 docker kill $(docker ps -q)
 docker rm $(docker ps -a -q)
-
+docker network rm yemektarifiodev-mysql
 
 docker run --name mysql-standalone -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=yemektarifiodev -e MYSQL_PASSWORD=1234 -d mysql
 
@@ -18,6 +18,10 @@ docker network create yemektarifiodev-mysql
 docker network ls
 docker container run --name mysqldb --network yemektarifiodev-mysql -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=yemektarifiodev -d mysql:8
 
-docker image build -t deneme .
+docker image build -t yemektarifiodev-jdbc .
 
-docker container run --network yemektarifiodev-mysql --name deneme-container -p 8080:8080 -d deneme
+docker container run --network yemektarifiodev-mysql --name yemektarifiodev-jdbc-container -p 8080:8080 -d yemektarifiodev-jdbc
+
+
+
+
