@@ -6,6 +6,7 @@ import com.odev.yemektarifiodevi.model.BaseEntity;
 import com.odev.yemektarifiodevi.model.FileModel;
 import com.odev.yemektarifiodevi.model.food.Food;
 import lombok.Data;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.List;
@@ -44,8 +45,8 @@ public class User extends BaseEntity {
     @OneToOne
     private FileModel profilePhoto;
 
-    /*public void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = new BCryptPasswordEncoder().encode(password);
     }
-        */
+
 }

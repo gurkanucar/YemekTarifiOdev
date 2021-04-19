@@ -14,7 +14,7 @@ import java.util.function.Function;
 @Service
 public class JwtUtil {
 
-    private String SECRET_KEY = "R2dpxQ3vPrtk8h62zs907Mpkk5czHNuSRtmhGmAGL42CaxQB9";
+    private String SECRET_KEY = "R2dpxQ3vPrtk8h62zs907Mpkk5czHNuSRtmhGmAGL42CaxQB8";
     private final long EXPIRATION_TIME = 8640000000L; // 100 days
 
     public String extractUsername(String token) {
