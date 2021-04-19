@@ -7,6 +7,9 @@ server:
       enabled: true
       force: true
 
+file:
+  upload-dir: ./uploads
+
 spring:
   jackson:
     default-property-inclusion: non_null
@@ -22,6 +25,13 @@ spring:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+  jmx:
+    enabled: false
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
 
 
 logging:
