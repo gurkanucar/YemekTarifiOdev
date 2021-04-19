@@ -57,6 +57,15 @@ public class CommentServiceImpl implements CommentService {
         return new ResponseEntity<>(convertCommentToDTO(commentRepo.save(comment)), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity update(Comment comment) {
+        Comment existing = commentRepo.findById(comment.getId()).orElse(null);
+        if(existing == null) return  new ResponseEntity(HttpStatus.NOT_FOUND);
+        existing.setComment(comment.getComment());
+        existing.setImage(comment.getImage());
+        return new ResponseEntity<>(convertCommentToDTO(commentRepo.save(existing)), HttpStatus.OK);
+    }
+
     private CommentDTO convertCommentToDTO(Comment comment) {
         if (comment != null) {
             CommentDTO dto = new CommentDTO();

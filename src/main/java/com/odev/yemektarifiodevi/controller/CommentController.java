@@ -32,4 +32,7 @@ public class CommentController {
         return commentService.deleteById(id);
     }
 
+    @PutMapping
+    public ResponseEntity update(@RequestBody Comment comment){return commentService.update(comment);}
+
 }

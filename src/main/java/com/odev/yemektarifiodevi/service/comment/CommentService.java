@@ -8,4 +8,5 @@ public interface CommentService {
     ResponseEntity getById(Long id);
     ResponseEntity getAllCommentsByFoodId(Long foodID);
     ResponseEntity deleteById(Long id);
+    ResponseEntity update(Comment comment);
 }
