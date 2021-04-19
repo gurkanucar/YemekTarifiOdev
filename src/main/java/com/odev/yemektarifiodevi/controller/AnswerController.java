@@ -36,7 +36,7 @@ public class AnswerController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<Answer> deleteById(@RequestBody Answer answer){
         return answerService.update(answer);
     }
