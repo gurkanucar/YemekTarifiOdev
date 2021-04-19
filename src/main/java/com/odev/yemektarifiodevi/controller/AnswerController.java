@@ -28,13 +28,18 @@ public class AnswerController {
     public ResponseEntity<Answer> deleteById(@PathVariable Long id){
         return answerService.deleteById(id);
     }
+
+
     @PostMapping("/commentID/{id}")
     public ResponseEntity<Answer> createById(@PathVariable Long id, @RequestBody Answer answer ){
         return answerService.createAnswer(id, answer);
     }
 
 
-
+    @PutMapping("/{id}")
+    public ResponseEntity<Answer> deleteById(@RequestBody Answer answer){
+        return answerService.update(answer);
+    }
 
 
 }

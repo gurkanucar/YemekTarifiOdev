@@ -61,6 +61,15 @@ public class AnswerServiceImpl implements AnswerService {
         return new ResponseEntity<>(convertAnswerToDTO(answerRepository.save(answer)),HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity update(Answer answer) {
+        Answer existing = answerRepository.findById(answer.getId()).orElse(null);
+        if(existing!=null){
+            existing.setAnswer(answer.getAnswer());
+        }
+        return null;
+    }
+
     private AnswerDTO convertAnswerToDTO(Answer answer) {
         if (answer != null) {
             AnswerDTO dto = new AnswerDTO();

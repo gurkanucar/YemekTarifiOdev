@@ -9,5 +9,6 @@ public interface AnswerService {
     ResponseEntity getById(Long id);
     ResponseEntity getAllCommentsByCommentId(Long CommentID);
     ResponseEntity deleteById(Long id);
+    ResponseEntity update(Answer answer);
 
 }
