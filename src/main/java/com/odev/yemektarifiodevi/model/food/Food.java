@@ -30,7 +30,7 @@ public class Food extends BaseEntity implements Serializable {
     private FileModel image;
 
     private Long completedCount;
-    private Double rankStar;
+    private int rankStar;
     private int hardness;
 
     private int prepTime;
