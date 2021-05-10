@@ -77,6 +77,7 @@ public class AnswerServiceImpl implements AnswerService {
             dto.setCommentID(answer.getComment().getId());
             dto.setId(answer.getId());
             dto.setUserID(answer.getUser().getId());
+            dto.setUsername(answer.getUser().getUsername());
             dto.setUserPhotoUrl(answer.getUser().getProfilePhoto() != null ? answer.getUser().getProfilePhoto().getUrl() : null);
             return dto;
         }

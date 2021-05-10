@@ -8,5 +8,6 @@ public class AnswerDTO {
     private Long id;
     private Long userID;
     private String userPhotoUrl;
+    private String username;
     private Long commentID;
 }

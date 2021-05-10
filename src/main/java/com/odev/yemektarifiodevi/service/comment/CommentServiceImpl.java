@@ -73,6 +73,7 @@ public class CommentServiceImpl implements CommentService {
             dto.setFoodID(comment.getFood().getId());
             dto.setId(comment.getId());
             dto.setUserID(comment.getUser().getId());
+            dto.setUsername(comment.getUser().getUsername());
             dto.setUserPhotoUrl(comment.getUser().getProfilePhoto() != null ? comment.getUser().getProfilePhoto().getUrl() : null);
             return dto;
         }

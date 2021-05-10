@@ -9,6 +9,7 @@ public class CommentDTO {
     private Long id;
     private Long userID;
     private String userPhotoUrl;
+    private String username;
     private Long foodID;
 
 }
