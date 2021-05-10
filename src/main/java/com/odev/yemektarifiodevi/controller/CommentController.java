@@ -1,6 +1,7 @@
 package com.odev.yemektarifiodevi.controller;
 
 import com.odev.yemektarifiodevi.model.comment.Comment;
+import com.odev.yemektarifiodevi.model.dtos.CommentDTO;
 import com.odev.yemektarifiodevi.service.comment.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class CommentController {
     }
 
     @PostMapping("/foodID/{id}")
-    public ResponseEntity create(@PathVariable Long id, @RequestBody Comment comment) {
+    public ResponseEntity create(@PathVariable Long id, @RequestBody CommentDTO comment) {
         return commentService.createComment(id, comment);
     }
     @DeleteMapping("/{id}")

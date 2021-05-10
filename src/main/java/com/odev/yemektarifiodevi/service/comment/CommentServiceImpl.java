@@ -5,6 +5,7 @@ import com.odev.yemektarifiodevi.model.dtos.CommentDTO;
 import com.odev.yemektarifiodevi.model.food.Food;
 import com.odev.yemektarifiodevi.repository.CommentRepository;
 import com.odev.yemektarifiodevi.repository.FoodRepository;
+import com.odev.yemektarifiodevi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,19 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentRepository commentRepo;
 
+    @Autowired
+    UserRepository userRepo;
+
     @Override
-    public ResponseEntity<CommentDTO> createComment(Long foodID, Comment comment) {
+    public ResponseEntity<CommentDTO> createComment(Long foodID, CommentDTO comment) {
         Food food= foodRepo.findById(foodID).orElse(null);
 
         if(food!=null){
-            comment.setFood(food);
-            return new ResponseEntity<>(convertCommentToDTO(commentRepo.save(comment)), HttpStatus.OK);
+            Comment temp = new Comment();
+            temp.setComment(comment.getComment());
+            temp.setFood(food);
+            temp.setUser(userRepo.findById(comment.getUserID()).get());
+            return new ResponseEntity<>(convertCommentToDTO(commentRepo.save(temp)), HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
