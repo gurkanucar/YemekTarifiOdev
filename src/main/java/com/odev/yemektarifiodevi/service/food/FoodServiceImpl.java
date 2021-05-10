@@ -5,12 +5,14 @@ import com.odev.yemektarifiodevi.model.food.Food;
 import com.odev.yemektarifiodevi.model.user.User;
 import com.odev.yemektarifiodevi.repository.FoodRepository;
 import com.odev.yemektarifiodevi.repository.UserRepository;
+import com.odev.yemektarifiodevi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +23,9 @@ public class FoodServiceImpl implements FoodService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public ResponseEntity<Food> createFood(Food food) {
@@ -58,5 +63,13 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public ResponseEntity getFoodsByUserId(Long id) {
         return new ResponseEntity(foodRepo.findAllByUserId(id), HttpStatus.OK);
+    }
+
+
+    @Override
+    public ResponseEntity getSavedRecipes(Long id) {
+        List<User> userList= new ArrayList<>();
+        userList.add(userRepo.findById(id).get());
+        return new ResponseEntity(foodRepo.findAllBySavedUsers(userRepo.findById(id).get()),HttpStatus.OK);
     }
 }

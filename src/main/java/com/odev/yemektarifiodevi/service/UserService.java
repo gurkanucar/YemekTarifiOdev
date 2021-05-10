@@ -142,7 +142,7 @@ public class UserService {
         }
     }
 
-    protected String getAuthUserName() {
+    public String getAuthUserName() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 

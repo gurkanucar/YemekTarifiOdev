@@ -18,4 +18,11 @@ public interface FoodRepository extends JpaRepository<Food,Long> {
     List<Food> findAllByCategoryListInAndDeletedFalseAndFoodNameContaining(List<Category> categoryList,String searchedValue);
 
     List<Food> findAllByUserId(Long id);
+
+    List<Food> findAllBySavedUsers(User user);
+
+   /* List<Food> findAllByS(Long id);
+
+    List<Food> findAllByUserMyRecipes(Long id);*/
+
 }

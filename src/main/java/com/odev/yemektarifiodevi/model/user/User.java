@@ -9,11 +9,12 @@ import lombok.Data;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Entity
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Serializable {
 
     private String name;
     private String surname;
@@ -35,11 +36,15 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany
-    private List<Food> myRecipes;
-
+/*
+    @JsonIgnore
     @OneToMany
     private List<Food> savedRecipes;
+*/
+
+/*
+    @ManyToMany
+    List<Food> savedRecipes;*/
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne

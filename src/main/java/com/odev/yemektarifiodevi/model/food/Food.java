@@ -1,5 +1,6 @@
 package com.odev.yemektarifiodevi.model.food;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.odev.yemektarifiodevi.model.BaseEntity;
 import com.odev.yemektarifiodevi.model.FileModel;
@@ -8,12 +9,13 @@ import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Entity
 @Where(clause = "deleted = false")
-public class Food extends BaseEntity {
+public class Food extends BaseEntity implements Serializable {
 
     private String foodName;
     private String recipe;
@@ -21,6 +23,7 @@ public class Food extends BaseEntity {
 
     @OneToMany
     private List<Category> categoryList;
+
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne
@@ -38,4 +41,7 @@ public class Food extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @JsonIgnore
+    @ManyToMany
+    private List<User> savedUsers;
 }

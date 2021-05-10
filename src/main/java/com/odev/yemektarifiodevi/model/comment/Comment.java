@@ -10,11 +10,12 @@ import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Where(clause = "deleted = false")
-public class Comment extends BaseEntity {
+public class Comment extends BaseEntity implements Serializable {
     private String comment;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)

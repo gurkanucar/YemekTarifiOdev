@@ -40,5 +40,9 @@ public class FoodController {
        return foodService.deleteById(id);
    }
 
+    @GetMapping("/savedRecipes/{id}")
+    public ResponseEntity getSavedRecipes(@PathVariable Long id){
+        return foodService.getSavedRecipes(id);
+    }
 
 }
