@@ -75,6 +75,13 @@ public class UserController {
         return service.deleteById(id);
     }
 
+    @GetMapping("/public/{id}")
+    public ResponseEntity<User> getPublic(@PathVariable Long id) {
+        return service.getPublic(id);
+    }
+
+
+
 
     // ***************************
     // USER OPERATIONS

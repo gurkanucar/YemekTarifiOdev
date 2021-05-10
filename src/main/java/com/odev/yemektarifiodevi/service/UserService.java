@@ -1,7 +1,6 @@
 package com.odev.yemektarifiodevi.service;
 
 
-
 import com.odev.yemektarifiodevi.model.BaseEntity;
 import com.odev.yemektarifiodevi.model.CreateUser;
 import com.odev.yemektarifiodevi.model.other.Message;
@@ -82,13 +81,29 @@ public class UserService {
         }
     }
 
+    public ResponseEntity<User> getPublic(long id) {
+        User entity = repo.findById(id).orElse(null);
+
+        if (entity != null) {
+            entity.setEmail(null);
+            entity.setSurname(null);
+            entity.setRole(null);
+            entity.setVerificationCode(null);
+            //entity.setResetPassword(false);
+            return new ResponseEntity<>(entity, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
     public ResponseEntity<User> deleteById(long id) {
         User entity = repo.findById(id).orElse(null);
         User user = repo.findByUsername(getAuthUserName());
         if (user.getId() == id) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-        return deleteById(entity , repo);
+        return deleteById(entity, repo);
     }
 
     public ResponseEntity<User> getByUsername(String username) {
