@@ -92,9 +92,6 @@ public class UserService {
             entity.setSurname(null);
             entity.setRole(null);
             entity.setVerificationCode(null);
-            if(entity.getProfilePhoto()==null){
-                entity.setProfilePhoto(fileRepo.findById(16L).get());
-            }
             //entity.setResetPassword(false);
             return new ResponseEntity<>(entity, HttpStatus.OK);
         } else {
@@ -115,9 +112,6 @@ public class UserService {
     public ResponseEntity<User> getByUsername(String username) {
         User user = repo.findByUsername(username);
         if (user != null) {
-            if(user.getProfilePhoto()==null){
-                user.setProfilePhoto(fileRepo.findById(16L).get());
-            }
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

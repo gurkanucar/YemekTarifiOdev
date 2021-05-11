@@ -52,16 +52,6 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ResponseEntity<List<Food>> getAllFoods() {
-
-        List<Food> foodList= foodRepo.findAll();
-
-        for (Food food : foodList) {
-            if(food.getUser().getProfilePhoto()==null)
-            {
-                food.getUser().setProfilePhoto(fileRepo.findById(16L).get());
-            }
-        }
-
         return new ResponseEntity<>(foodRepo.findAll(), HttpStatus.OK);
     }
 
@@ -76,16 +66,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ResponseEntity getFoodsByUserId(Long id) {
-
-        List<Food> foodList= foodRepo.findAllByUserId(id);
-
-        for (Food food : foodList) {
-            if(food.getUser().getProfilePhoto()==null)
-            {
-                food.getUser().setProfilePhoto(fileRepo.findById(16L).get());
-            }
-        }
-        return new ResponseEntity(foodList, HttpStatus.OK);
+        return new ResponseEntity(foodRepo.findAllByUserId(id), HttpStatus.OK);
     }
 
 
