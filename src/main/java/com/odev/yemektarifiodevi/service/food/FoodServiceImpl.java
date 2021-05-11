@@ -3,6 +3,7 @@ package com.odev.yemektarifiodevi.service.food;
 import com.odev.yemektarifiodevi.model.food.Category;
 import com.odev.yemektarifiodevi.model.food.Food;
 import com.odev.yemektarifiodevi.model.user.User;
+import com.odev.yemektarifiodevi.repository.FileModelRepository;
 import com.odev.yemektarifiodevi.repository.FoodRepository;
 import com.odev.yemektarifiodevi.repository.UserRepository;
 import com.odev.yemektarifiodevi.service.UserService;
@@ -27,6 +28,9 @@ public class FoodServiceImpl implements FoodService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private FileModelRepository fileRepo;
+
     @Override
     public ResponseEntity<Food> createFood(Food food) {
         return new ResponseEntity<>(foodRepo.save(food), HttpStatus.OK);
@@ -48,6 +52,16 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ResponseEntity<List<Food>> getAllFoods() {
+
+        List<Food> foodList= foodRepo.findAll();
+
+        for (Food food : foodList) {
+            if(food.getUser().getProfilePhoto()==null)
+            {
+                food.getUser().setProfilePhoto(fileRepo.findById(16L).get());
+            }
+        }
+
         return new ResponseEntity<>(foodRepo.findAll(), HttpStatus.OK);
     }
 

@@ -4,6 +4,7 @@ import com.odev.yemektarifiodevi.model.comment.Comment;
 import com.odev.yemektarifiodevi.model.dtos.CommentDTO;
 import com.odev.yemektarifiodevi.model.food.Food;
 import com.odev.yemektarifiodevi.repository.CommentRepository;
+import com.odev.yemektarifiodevi.repository.FileModelRepository;
 import com.odev.yemektarifiodevi.repository.FoodRepository;
 import com.odev.yemektarifiodevi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    private FileModelRepository fileRepo;
 
     @Override
     public ResponseEntity<CommentDTO> createComment(Long foodID, CommentDTO comment) {
@@ -81,7 +85,7 @@ public class CommentServiceImpl implements CommentService {
             dto.setId(comment.getId());
             dto.setUserID(comment.getUser().getId());
             dto.setUsername(comment.getUser().getUsername());
-            dto.setUserPhotoUrl(comment.getUser().getProfilePhoto() != null ? comment.getUser().getProfilePhoto().getUrl() : null);
+            dto.setUserPhotoUrl(comment.getUser().getProfilePhoto() != null ? comment.getUser().getProfilePhoto().getUrl() : fileRepo.findById(16L).get().getUrl());
             return dto;
         }
         return null;

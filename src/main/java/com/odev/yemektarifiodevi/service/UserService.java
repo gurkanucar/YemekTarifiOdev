@@ -6,6 +6,7 @@ import com.odev.yemektarifiodevi.model.CreateUser;
 import com.odev.yemektarifiodevi.model.other.Message;
 import com.odev.yemektarifiodevi.model.user.Role;
 import com.odev.yemektarifiodevi.model.user.User;
+import com.odev.yemektarifiodevi.repository.FileModelRepository;
 import com.odev.yemektarifiodevi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +24,8 @@ public class UserService {
     @Autowired
     private UserRepository repo;
 
+    @Autowired
+    private FileModelRepository fileRepo;
 
     public ResponseEntity<User> create(User entity) {
         entity.setUsername(entity.getEmail());
@@ -89,6 +92,9 @@ public class UserService {
             entity.setSurname(null);
             entity.setRole(null);
             entity.setVerificationCode(null);
+            if(entity.getProfilePhoto()==null){
+                entity.setProfilePhoto(fileRepo.findById(16L).get());
+            }
             //entity.setResetPassword(false);
             return new ResponseEntity<>(entity, HttpStatus.OK);
         } else {
@@ -109,6 +115,9 @@ public class UserService {
     public ResponseEntity<User> getByUsername(String username) {
         User user = repo.findByUsername(username);
         if (user != null) {
+            if(user.getProfilePhoto()==null){
+                user.setProfilePhoto(fileRepo.findById(16L).get());
+            }
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -143,11 +152,16 @@ public class UserService {
 
         // assign user role
         entity.setRole(Role.USER);
-        entity.setEmail(user.getEmail());
-        entity.setUsername(user.getUsername());
-        entity.setName(user.getName());
-        entity.setSurname(user.getSurname());
+        entity.setEmail(user.getUsername());
+         entity.setUsername(user.getUsername());
+        entity.setName(user.getUsername());
+        entity.setSurname(user.getUsername());
+       // entity.setUsername(user.getUsername());
+       // entity.setName(user.getName());
+        //entity.setSurname(user.getSurname());
         entity.setPassword(user.getPassword());
+
+
 
         User savedUser = repo.save(entity);
         if (savedUser != null) {
