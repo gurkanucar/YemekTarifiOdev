@@ -76,7 +76,16 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ResponseEntity getFoodsByUserId(Long id) {
-        return new ResponseEntity(foodRepo.findAllByUserId(id), HttpStatus.OK);
+
+        List<Food> foodList= foodRepo.findAllByUserId(id);
+
+        for (Food food : foodList) {
+            if(food.getUser().getProfilePhoto()==null)
+            {
+                food.getUser().setProfilePhoto(fileRepo.findById(16L).get());
+            }
+        }
+        return new ResponseEntity(foodList, HttpStatus.OK);
     }
 
 
