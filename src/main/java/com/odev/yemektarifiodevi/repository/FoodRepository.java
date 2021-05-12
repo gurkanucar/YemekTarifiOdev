@@ -21,6 +21,7 @@ public interface FoodRepository extends JpaRepository<Food,Long> {
 
     List<Food> findAllBySavedUsers(User user);
 
+
    /* List<Food> findAllByS(Long id);
 
     List<Food> findAllByUserMyRecipes(Long id);*/

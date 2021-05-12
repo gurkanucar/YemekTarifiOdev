@@ -1,5 +1,6 @@
 package com.odev.yemektarifiodevi.service.food;
 
+import com.odev.yemektarifiodevi.model.Search;
 import com.odev.yemektarifiodevi.model.food.Category;
 import com.odev.yemektarifiodevi.model.food.Food;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ public interface FoodService {
     ResponseEntity deleteById(Long id);
     ResponseEntity getFoodsByUserId(Long id);
     ResponseEntity getSavedRecipes(Long id);
+    ResponseEntity getSearchedFoods(Search search);
+    ResponseEntity getByCategory(Long id);
+
 
 
 

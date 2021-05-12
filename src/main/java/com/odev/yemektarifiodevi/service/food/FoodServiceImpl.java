@@ -1,12 +1,15 @@
 package com.odev.yemektarifiodevi.service.food;
 
+import com.odev.yemektarifiodevi.model.Search;
 import com.odev.yemektarifiodevi.model.food.Category;
 import com.odev.yemektarifiodevi.model.food.Food;
 import com.odev.yemektarifiodevi.model.user.User;
+import com.odev.yemektarifiodevi.repository.CategoryRepository;
 import com.odev.yemektarifiodevi.repository.FileModelRepository;
 import com.odev.yemektarifiodevi.repository.FoodRepository;
 import com.odev.yemektarifiodevi.repository.UserRepository;
 import com.odev.yemektarifiodevi.service.UserService;
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FoodServiceImpl implements FoodService {
@@ -30,6 +35,10 @@ public class FoodServiceImpl implements FoodService {
 
     @Autowired
     private FileModelRepository fileRepo;
+
+    @Autowired
+    private CategoryRepository categoryRepo;
+
 
     @Override
     public ResponseEntity<Food> createFood(Food food) {
@@ -52,7 +61,9 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ResponseEntity<List<Food>> getAllFoods() {
-        return new ResponseEntity<>(foodRepo.findAll(), HttpStatus.OK);
+        List<Food> temp = foodRepo.findAll();
+        Collections.reverse(temp);
+        return new ResponseEntity<>(temp, HttpStatus.OK);
     }
 
 
@@ -72,8 +83,35 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ResponseEntity getSavedRecipes(Long id) {
-        List<User> userList= new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         userList.add(userRepo.findById(id).get());
-        return new ResponseEntity(foodRepo.findAllBySavedUsers(userRepo.findById(id).get()),HttpStatus.OK);
+        return new ResponseEntity(foodRepo.findAllBySavedUsers(userRepo.findById(id).get()), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity getSearchedFoods(Search search) {
+
+        if (search.getCategories() == null) {
+            search.setCategories(new ArrayList<>());
+        }
+        if (search.getValue() == null) {
+            search.setValue("");
+        }
+
+        List<Food> foodList = foodRepo.
+                findAllByCategoryListInAndDeletedFalseAndFoodNameContaining(search.getCategories(), search.getValue());
+
+        return new ResponseEntity(foodList.stream().distinct().collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity getByCategory(Long id) {
+        List<Category> categories= new ArrayList<>();
+        Category category = categoryRepo.findById(id).orElse(null);
+        if(category==null){
+            return new ResponseEntity(categories, HttpStatus.OK);
+        }
+        categories.add(category);
+        return new ResponseEntity(foodRepo.findAllByCategoryListInAndDeletedFalse(categories), HttpStatus.OK);
     }
 }

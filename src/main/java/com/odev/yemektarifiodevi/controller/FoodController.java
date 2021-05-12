@@ -1,10 +1,14 @@
 package com.odev.yemektarifiodevi.controller;
 
+import com.odev.yemektarifiodevi.model.Search;
+import com.odev.yemektarifiodevi.model.food.Category;
 import com.odev.yemektarifiodevi.model.food.Food;
 import com.odev.yemektarifiodevi.service.food.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/food")
@@ -43,6 +47,17 @@ public class FoodController {
     @GetMapping("/savedRecipes/{id}")
     public ResponseEntity getSavedRecipes(@PathVariable Long id){
         return foodService.getSavedRecipes(id);
+    }
+
+
+    @PostMapping("/search")
+    public ResponseEntity search(@RequestBody Search search){
+        return foodService.getSearchedFoods(search);
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity getByCategory(@PathVariable Long id){
+        return foodService.getByCategory(id);
     }
 
 }
