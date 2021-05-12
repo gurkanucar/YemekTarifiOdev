@@ -114,4 +114,9 @@ public class FoodServiceImpl implements FoodService {
         categories.add(category);
         return new ResponseEntity(foodRepo.findAllByCategoryListInAndDeletedFalse(categories), HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity getByName(String name) {
+        return new ResponseEntity(foodRepo.findAllByFoodNameContaining(name), HttpStatus.OK);
+    }
 }

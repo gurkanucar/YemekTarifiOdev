@@ -51,7 +51,7 @@ public class FoodController {
 
 
     @PostMapping("/search")
-    public ResponseEntity search(@RequestBody Search search){
+    public ResponseEntity filter(@RequestBody Search search){
         return foodService.getSearchedFoods(search);
     }
 
@@ -59,5 +59,11 @@ public class FoodController {
     public ResponseEntity getByCategory(@PathVariable Long id){
         return foodService.getByCategory(id);
     }
+
+    @GetMapping("/search/{name}")
+    public ResponseEntity getByName(@PathVariable String name){
+        return foodService.getByName(name);
+    }
+
 
 }
