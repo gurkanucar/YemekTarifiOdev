@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @RestController
@@ -27,6 +28,11 @@ public class FoodController {
    public ResponseEntity create(@RequestBody Food food){
         return foodService.createFood(food);
    }
+
+    @PutMapping
+    public ResponseEntity update(@RequestBody Food food) throws InvocationTargetException, IllegalAccessException {
+        return foodService.updateFood(food);
+    }
 
    @GetMapping("/{id}")
    public ResponseEntity getById(@PathVariable Long id){

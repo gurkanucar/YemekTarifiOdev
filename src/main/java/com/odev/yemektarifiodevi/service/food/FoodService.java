@@ -11,7 +11,7 @@ import java.util.List;
 public interface FoodService {
 
     ResponseEntity createFood(Food food);
-    //ResponseEntity updateFood(Food food) throws InvocationTargetException, IllegalAccessException;
+    ResponseEntity updateFood(Food food) throws InvocationTargetException, IllegalAccessException;
     ResponseEntity getById(Long id);
     ResponseEntity getAllFoods();
     ResponseEntity deleteById(Long id);

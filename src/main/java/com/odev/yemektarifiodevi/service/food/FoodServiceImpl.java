@@ -9,6 +9,8 @@ import com.odev.yemektarifiodevi.repository.FileModelRepository;
 import com.odev.yemektarifiodevi.repository.FoodRepository;
 import com.odev.yemektarifiodevi.repository.UserRepository;
 import com.odev.yemektarifiodevi.service.UserService;
+import com.odev.yemektarifiodevi.utils.NullAwareBeanUtilsBean;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,14 +47,15 @@ public class FoodServiceImpl implements FoodService {
         return new ResponseEntity<>(foodRepo.save(food), HttpStatus.OK);
     }
 
-    /*@Override
+    @Override
     public ResponseEntity<Food> updateFood(Food food) throws InvocationTargetException, IllegalAccessException {
         Food existingFood = foodRepo.findById(food.getId()).orElse(null);
         if (existingFood == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         BeanUtilsBean notNull = new NullAwareBeanUtilsBean();
         notNull.copyProperties(existingFood, food);
         return new ResponseEntity<>(foodRepo.save(existingFood), HttpStatus.OK);
-    }*/
+    }
+
 
     @Override
     public ResponseEntity<Food> getById(Long id) {
