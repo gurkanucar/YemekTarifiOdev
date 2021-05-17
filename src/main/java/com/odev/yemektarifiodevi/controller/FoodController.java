@@ -20,55 +20,60 @@ public class FoodController {
 
 
     @GetMapping
-    public ResponseEntity getAll(){
-       return foodService.getAllFoods();
-   }
+    public ResponseEntity getAll() {
+        return foodService.getAllFoods();
+    }
 
-   @PostMapping
-   public ResponseEntity create(@RequestBody Food food){
+    @PostMapping
+    public ResponseEntity create(@RequestBody Food food) {
         return foodService.createFood(food);
-   }
+    }
 
     @PutMapping
     public ResponseEntity update(@RequestBody Food food) throws InvocationTargetException, IllegalAccessException {
         return foodService.updateFood(food);
     }
 
-   @GetMapping("/{id}")
-   public ResponseEntity getById(@PathVariable Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@PathVariable Long id) {
         return foodService.getById(id);
-   }
+    }
 
     @GetMapping("/userID/{id}")
-    public ResponseEntity getByUserId(@PathVariable Long id){
+    public ResponseEntity getByUserId(@PathVariable Long id) {
         return foodService.getFoodsByUserId(id);
     }
 
 
-   @DeleteMapping("/{id}")
-   public ResponseEntity deleteById(@PathVariable Long id){
-       return foodService.deleteById(id);
-   }
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteById(@PathVariable Long id) {
+        return foodService.deleteById(id);
+    }
 
     @GetMapping("/savedRecipes/{id}")
-    public ResponseEntity getSavedRecipes(@PathVariable Long id){
+    public ResponseEntity getSavedRecipes(@PathVariable Long id) {
         return foodService.getSavedRecipes(id);
     }
 
 
     @PostMapping("/search")
-    public ResponseEntity filter(@RequestBody Search search){
+    public ResponseEntity filter(@RequestBody Search search) {
         return foodService.getSearchedFoods(search);
     }
 
     @GetMapping("/category/{id}")
-    public ResponseEntity getByCategory(@PathVariable Long id){
+    public ResponseEntity getByCategory(@PathVariable Long id) {
         return foodService.getByCategory(id);
     }
 
     @GetMapping("/search/{name}")
-    public ResponseEntity getByName(@PathVariable String name){
+    public ResponseEntity getByName(@PathVariable String name) {
         return foodService.getByName(name);
+    }
+
+    @GetMapping("/savedRecipes/{userID}/{foodID}")
+    public ResponseEntity savedRecipeUpdate(@PathVariable Long userID,@PathVariable Long foodID) {
+        return foodService.savedRecipeUpdate(userID,foodID);
     }
 
 

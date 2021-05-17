@@ -41,7 +41,7 @@ public class Food extends BaseEntity implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToMany
     private List<User> savedUsers;
 }

@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
@@ -109,9 +110,9 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ResponseEntity getByCategory(Long id) {
-        List<Category> categories= new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
         Category category = categoryRepo.findById(id).orElse(null);
-        if(category==null){
+        if (category == null) {
             return new ResponseEntity(categories, HttpStatus.OK);
         }
         categories.add(category);
@@ -122,4 +123,52 @@ public class FoodServiceImpl implements FoodService {
     public ResponseEntity getByName(String name) {
         return new ResponseEntity(foodRepo.findAllByFoodNameContaining(name), HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity savedRecipeUpdate(Long userID, Long foodID) {
+
+        User user = userRepo.findById(userID).orElse(null);
+        Food food = foodRepo.findById(foodID).orElse(null);
+        if(food!=null && user!=null){
+
+           User tempUser = food.getSavedUsers().stream()
+                   .filter(data -> userID ==data.getId())
+                   .findAny()
+                   .orElse(null);
+           if(tempUser==null){
+               System.out.println("Eklendi");
+               addToSavedRecipes(userID,foodID);
+           }
+           else {
+               System.out.println("Çıkarıldı");
+               deleteFromSavedRecipes(userID,foodID);
+           }
+        }
+        return ResponseEntity.ok().build();
+    }
+
+
+    public int addToSavedRecipes(Long userID, Long foodID) {
+        User user = userRepo.findById(userID).orElse(null);
+        Food food = foodRepo.findById(foodID).orElse(null);
+        if (user != null && food != null) {
+            food.getSavedUsers().add(user);
+            foodRepo.save(food);
+            return 1;
+        }
+        return 0;
+    }
+
+    public int deleteFromSavedRecipes(Long userID, Long foodID) {
+        User user = userRepo.findById(userID).orElse(null);
+        Food food = foodRepo.findById(foodID).orElse(null);
+        if (user != null && food != null) {
+            food.getSavedUsers().remove(user);
+            foodRepo.save(food);
+            return 1;
+        }
+        return 0;
+    }
+
+
 }

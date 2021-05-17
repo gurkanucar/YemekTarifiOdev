@@ -20,7 +20,6 @@ public interface FoodService {
     ResponseEntity getSearchedFoods(Search search);
     ResponseEntity getByCategory(Long id);
     ResponseEntity getByName(String name);
-
-
+    ResponseEntity savedRecipeUpdate(Long userID,Long foodID);
 
 }
