@@ -21,7 +21,7 @@ public class Food extends BaseEntity implements Serializable {
     private String recipe;
     private String ingredients;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     private List<Category> categoryList;
 
 
