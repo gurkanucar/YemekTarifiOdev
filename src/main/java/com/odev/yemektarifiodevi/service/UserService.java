@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService extends BaseService{
 
     @Autowired
     private UserRepository repo;
@@ -109,14 +109,6 @@ public class UserService {
         return deleteById(entity, repo);
     }
 
-    public ResponseEntity<User> getByUsername(String username) {
-        User user = repo.findByUsername(username);
-        if (user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 
 
     public ResponseEntity<User> updateProfile(String authUserName, User user) {
@@ -165,9 +157,6 @@ public class UserService {
         }
     }
 
-    public String getAuthUserName() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
 
     ResponseEntity<User> deleteById(BaseEntity entity, JpaRepository repo) {
         if (entity != null) {

@@ -3,10 +3,13 @@ package com.odev.yemektarifiodevi.service.comment;
 import com.odev.yemektarifiodevi.model.comment.Comment;
 import com.odev.yemektarifiodevi.model.dtos.CommentDTO;
 import com.odev.yemektarifiodevi.model.food.Food;
+import com.odev.yemektarifiodevi.model.user.Role;
+import com.odev.yemektarifiodevi.model.user.User;
 import com.odev.yemektarifiodevi.repository.CommentRepository;
 import com.odev.yemektarifiodevi.repository.FileModelRepository;
 import com.odev.yemektarifiodevi.repository.FoodRepository;
 import com.odev.yemektarifiodevi.repository.UserRepository;
+import com.odev.yemektarifiodevi.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CommentServiceImpl implements CommentService {
+public class CommentServiceImpl extends BaseService implements CommentService {
 
     @Autowired
     FoodRepository foodRepo;
@@ -63,9 +66,17 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public ResponseEntity<CommentDTO> deleteById(Long id) {
         Comment comment = commentRepo.findById(id).orElse(null);
+
         if (comment == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        comment.setDeleted(true);
+        User user = userRepo.findByUsername(getAuthUserName());
+
+        if (user.getId() == comment.getUser().getId() || user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.MODERATOR)) {
+            comment.setDeleted(true);
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
         return new ResponseEntity<>(convertCommentToDTO(commentRepo.save(comment)), HttpStatus.OK);
+
     }
 
     @Override

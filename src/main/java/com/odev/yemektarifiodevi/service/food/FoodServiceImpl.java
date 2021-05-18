@@ -3,11 +3,13 @@ package com.odev.yemektarifiodevi.service.food;
 import com.odev.yemektarifiodevi.model.Search;
 import com.odev.yemektarifiodevi.model.food.Category;
 import com.odev.yemektarifiodevi.model.food.Food;
+import com.odev.yemektarifiodevi.model.user.Role;
 import com.odev.yemektarifiodevi.model.user.User;
 import com.odev.yemektarifiodevi.repository.CategoryRepository;
 import com.odev.yemektarifiodevi.repository.FileModelRepository;
 import com.odev.yemektarifiodevi.repository.FoodRepository;
 import com.odev.yemektarifiodevi.repository.UserRepository;
+import com.odev.yemektarifiodevi.service.BaseService;
 import com.odev.yemektarifiodevi.service.UserService;
 import com.odev.yemektarifiodevi.utils.NullAwareBeanUtilsBean;
 import org.apache.commons.beanutils.BeanUtilsBean;
@@ -25,7 +27,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
-public class FoodServiceImpl implements FoodService {
+public class FoodServiceImpl extends BaseService implements FoodService {
 
     @Autowired
     private FoodRepository foodRepo;
@@ -74,8 +76,17 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public ResponseEntity<Food> deleteById(Long id) {
         Food food = foodRepo.findById(id).orElse(null);
+
         if (food == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        food.setDeleted(true);
+        User user = userRepo.findByUsername(getAuthUserName());
+
+        if (user.getId() == food.getUser().getId() || user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.MODERATOR)) {
+            food.setDeleted(true);
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+
+
         return new ResponseEntity<>(foodRepo.save(food), HttpStatus.OK);
     }
 
@@ -129,20 +140,19 @@ public class FoodServiceImpl implements FoodService {
 
         User user = userRepo.findById(userID).orElse(null);
         Food food = foodRepo.findById(foodID).orElse(null);
-        if(food!=null && user!=null){
+        if (food != null && user != null) {
 
-           User tempUser = food.getSavedUsers().stream()
-                   .filter(data -> userID ==data.getId())
-                   .findAny()
-                   .orElse(null);
-           if(tempUser==null){
-               System.out.println("Eklendi");
-               addToSavedRecipes(userID,foodID);
-           }
-           else {
-               System.out.println("Çıkarıldı");
-               deleteFromSavedRecipes(userID,foodID);
-           }
+            User tempUser = food.getSavedUsers().stream()
+                    .filter(data -> userID == data.getId())
+                    .findAny()
+                    .orElse(null);
+            if (tempUser == null) {
+                System.out.println("Eklendi");
+                addToSavedRecipes(userID, foodID);
+            } else {
+                System.out.println("Çıkarıldı");
+                deleteFromSavedRecipes(userID, foodID);
+            }
         }
         return ResponseEntity.ok().build();
     }
