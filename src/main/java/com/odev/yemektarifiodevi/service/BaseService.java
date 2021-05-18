@@ -13,12 +13,12 @@ public class BaseService {
 
     @Autowired
     private UserRepository repo;
-    public ResponseEntity<User> getByUsername(String username) {
+    public User getByUsername(String username) {
         User user = repo.findByUsername(username);
         if (user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            return user;
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return null;
         }
     }
 

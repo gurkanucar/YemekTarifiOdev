@@ -1,9 +1,11 @@
 package com.odev.yemektarifiodevi.config.jwt;
 
 
+import com.odev.yemektarifiodevi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -21,6 +23,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -41,8 +46,12 @@ public class JwtFilter extends OncePerRequestFilter {
             System.out.println("------------------------------------------");
             System.out.println("Username: " + username);
             System.out.println("------------------------------------------");
+
+            com.odev.yemektarifiodevi.model.user.User user = userService.getByUsername(username);
+            // && !user.isDeleted()
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if (jwtUtil.validateToken(jwt, userDetails)) {
+            System.out.println(user.getUsername() +"  "+user.getRole()+"   "+user.isDeleted());
+            if (jwtUtil.validateToken(jwt, userDetails) && !user.isDeleted()) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

@@ -3,10 +3,12 @@ package com.odev.yemektarifiodevi.service;
 
 import com.odev.yemektarifiodevi.model.BaseEntity;
 import com.odev.yemektarifiodevi.model.CreateUser;
+import com.odev.yemektarifiodevi.model.food.Food;
 import com.odev.yemektarifiodevi.model.other.Message;
 import com.odev.yemektarifiodevi.model.user.Role;
 import com.odev.yemektarifiodevi.model.user.User;
 import com.odev.yemektarifiodevi.repository.FileModelRepository;
+import com.odev.yemektarifiodevi.repository.FoodRepository;
 import com.odev.yemektarifiodevi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,10 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService extends BaseService{
+public class UserService extends BaseService {
 
     @Autowired
     private UserRepository repo;
+
+    @Autowired
+    private FoodRepository foodRepo;
 
     @Autowired
     private FileModelRepository fileRepo;
@@ -103,12 +108,16 @@ public class UserService extends BaseService{
     public ResponseEntity<User> deleteById(long id) {
         User entity = repo.findById(id).orElse(null);
         User user = repo.findByUsername(getAuthUserName());
-        if (user.getId() == id) {
+        if (user.getId() == id || user.getRole().equals(Role.USER)) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        List<Food> foodList = foodRepo.findAllByUserId(id);
+        for (Food food : foodList) {
+            food.setDeleted(true);
+            foodRepo.save(food);
         }
         return deleteById(entity, repo);
     }
-
 
 
     public ResponseEntity<User> updateProfile(String authUserName, User user) {
@@ -139,14 +148,13 @@ public class UserService extends BaseService{
         // assign user role
         entity.setRole(Role.USER);
         entity.setEmail(user.getUsername());
-         entity.setUsername(user.getUsername());
+        entity.setUsername(user.getUsername());
         entity.setName(user.getUsername());
         entity.setSurname(user.getUsername());
-       // entity.setUsername(user.getUsername());
-       // entity.setName(user.getName());
+        // entity.setUsername(user.getUsername());
+        // entity.setName(user.getName());
         //entity.setSurname(user.getSurname());
         entity.setPassword(user.getPassword());
-
 
 
         User savedUser = repo.save(entity);

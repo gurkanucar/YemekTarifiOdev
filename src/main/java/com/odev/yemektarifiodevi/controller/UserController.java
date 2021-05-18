@@ -1,7 +1,6 @@
 package com.odev.yemektarifiodevi.controller;
 
 
-
 import com.odev.yemektarifiodevi.config.jwt.JwtUtil;
 import com.odev.yemektarifiodevi.model.AuthRequest;
 import com.odev.yemektarifiodevi.model.CreateUser;
@@ -46,7 +45,6 @@ public class UserController {
     }
 
 
-
     @PostMapping
     public ResponseEntity create(@RequestBody User user) {
         return service.create(user);
@@ -81,8 +79,6 @@ public class UserController {
     }
 
 
-
-
     // ***************************
     // USER OPERATIONS
     // ***************************
@@ -90,7 +86,7 @@ public class UserController {
 
     @GetMapping("/self")
     public ResponseEntity<User> getSelf() {
-        return service.getByUsername(getAuthUserName());
+        return ResponseEntity.ok().body(service.getByUsername(getAuthUserName()));
     }
 
 
@@ -119,7 +115,7 @@ public class UserController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity getUserCount(){
+    public ResponseEntity getUserCount() {
         return service.getUserCount();
     }
 
