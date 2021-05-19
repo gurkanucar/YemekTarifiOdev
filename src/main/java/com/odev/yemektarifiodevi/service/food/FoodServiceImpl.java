@@ -83,7 +83,10 @@ public class FoodServiceImpl extends BaseService implements FoodService {
         if (user.getId() == food.getUser().getId() || user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.MODERATOR)) {
             food.setDeleted(true);
         }else{
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            if(user.getId()!=food.getUser().getId() && !food.getUser().getRole().equals(Role.ADMIN)) {
+                isUserShouldBanned(food.getUser().getId());
+            }
+           // return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
 
 

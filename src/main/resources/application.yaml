@@ -10,6 +10,9 @@ server:
 file:
   upload-dir: ./uploads
 
+thresholdValue: 5
+
+
 spring:
   jackson:
     default-property-inclusion: non_null

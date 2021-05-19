@@ -24,6 +24,8 @@ public class User extends BaseEntity implements Serializable {
     @Column(unique = true, nullable = false)
     private String email;
 
+    private int complaintCount;
+
     @JsonIgnore
     //@Setter(AccessLevel.NONE)
     private String password;

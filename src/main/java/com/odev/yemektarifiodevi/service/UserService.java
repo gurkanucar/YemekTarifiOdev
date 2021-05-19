@@ -120,6 +120,17 @@ public class UserService extends BaseService {
     }
 
 
+    public void userBanForComplaintCount(long id) {
+        User entity = repo.findById(id).orElse(null);
+        List<Food> foodList = foodRepo.findAllByUserId(id);
+        for (Food food : foodList) {
+            food.setDeleted(true);
+            foodRepo.save(food);
+        }
+        deleteById(entity, repo);
+    }
+
+
     public ResponseEntity<User> updateProfile(String authUserName, User user) {
         User originalUser = repo.findByUsername(authUserName);
         originalUser.setName(user.getName());

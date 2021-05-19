@@ -35,9 +35,9 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 
     @Override
     public ResponseEntity<CommentDTO> createComment(Long foodID, CommentDTO comment) {
-        Food food= foodRepo.findById(foodID).orElse(null);
+        Food food = foodRepo.findById(foodID).orElse(null);
 
-        if(food!=null){
+        if (food != null) {
             Comment temp = new Comment();
             temp.setComment(comment.getComment());
             temp.setFood(food);
@@ -72,8 +72,11 @@ public class CommentServiceImpl extends BaseService implements CommentService {
 
         if (user.getId() == comment.getUser().getId() || user.getRole().equals(Role.ADMIN) || user.getRole().equals(Role.MODERATOR)) {
             comment.setDeleted(true);
-        }else{
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        } else {
+            if(user.getId()!=comment.getUser().getId() && !comment.getUser().getRole().equals(Role.ADMIN)) {
+                isUserShouldBanned(comment.getUser().getId());
+            }
+            //  return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(convertCommentToDTO(commentRepo.save(comment)), HttpStatus.OK);
 
@@ -82,7 +85,7 @@ public class CommentServiceImpl extends BaseService implements CommentService {
     @Override
     public ResponseEntity update(Comment comment) {
         Comment existing = commentRepo.findById(comment.getId()).orElse(null);
-        if(existing == null) return  new ResponseEntity(HttpStatus.NOT_FOUND);
+        if (existing == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
         existing.setComment(comment.getComment());
         existing.setImage(comment.getImage());
         return new ResponseEntity<>(convertCommentToDTO(commentRepo.save(existing)), HttpStatus.OK);
