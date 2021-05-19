@@ -78,6 +78,11 @@ public class UserController {
         return service.getPublic(id);
     }
 
+    @GetMapping("/profileImage/{userID}/{imageID}")
+    public ResponseEntity<User> profileImageUpdate(@PathVariable Long userID,@PathVariable Long imageID) {
+        return service.profileImageUpdate(userID,imageID);
+    }
+
 
     // ***************************
     // USER OPERATIONS
