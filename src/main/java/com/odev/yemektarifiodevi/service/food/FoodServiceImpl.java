@@ -103,7 +103,9 @@ public class FoodServiceImpl extends BaseService implements FoodService {
     public ResponseEntity getSavedRecipes(Long id) {
         List<User> userList = new ArrayList<>();
         userList.add(userRepo.findById(id).get());
-        return new ResponseEntity(foodRepo.findAllBySavedUsers(userRepo.findById(id).get()), HttpStatus.OK);
+        List<Food> savedRecipes = foodRepo.findAllBySavedUsers(userRepo.findById(id).get());
+        Collections.reverse(savedRecipes);
+        return new ResponseEntity(savedRecipes, HttpStatus.OK);
     }
 
     @Override
