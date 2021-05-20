@@ -11,16 +11,16 @@ file:
   upload-dir: ./uploads
 
 thresholdValue: 5
-
+#mysql://bb75713942efcf:d4608901@us-cdbr-east-03.cleardb.com/heroku_e96f8da545ef743?reconnect=true
 
 spring:
   jackson:
     default-property-inclusion: non_null
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/yemektarifiodev?useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password: 1234
+    url: jdbc:mysql://username:pass@us-cdbr-east-03.cleardb.com/dbName?reconnect=true&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: username
+    password: pass
   jpa:
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
