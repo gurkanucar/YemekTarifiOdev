@@ -1,0 +1,222 @@
+-- --------------------------------------------------------
+-- Sunucu:                       127.0.0.1
+-- Sunucu sürümü:                8.0.22 - MySQL Community Server - GPL
+-- Sunucu İşletim Sistemi:       Win64
+-- HeidiSQL Sürüm:               11.1.0.6116
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- yemektarifiodev için veritabanı yapısı dökülüyor
+CREATE DATABASE IF NOT EXISTS `yemektarifiodev` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `yemektarifiodev`;
+
+-- tablo yapısı dökülüyor yemektarifiodev.answer
+CREATE TABLE IF NOT EXISTS `answer` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `deleted` bit(1) NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `answer` varchar(255) DEFAULT NULL,
+  `comment_id` bigint NOT NULL,
+  `image_id` bigint DEFAULT NULL,
+  `user_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKtm5ec7a54qlcrsm16um8ouahx` (`comment_id`),
+  KEY `FKdejry4iapi9thley3cqx25yi4` (`image_id`),
+  KEY `FKex4ms626i021vnaqxsfttsged` (`user_id`),
+  CONSTRAINT `FKdejry4iapi9thley3cqx25yi4` FOREIGN KEY (`image_id`) REFERENCES `filemodel` (`id`),
+  CONSTRAINT `FKex4ms626i021vnaqxsfttsged` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FKtm5ec7a54qlcrsm16um8ouahx` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- yemektarifiodev.answer: ~0 rows (yaklaşık) tablosu için veriler indiriliyor
+DELETE FROM `answer`;
+/*!40000 ALTER TABLE `answer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `answer` ENABLE KEYS */;
+
+-- tablo yapısı dökülüyor yemektarifiodev.category
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `deleted` bit(1) NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `nameEnglish` varchar(255) DEFAULT NULL,
+  `nameTurkish` varchar(255) DEFAULT NULL,
+  `categoryImage_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK1afrfu1f12s884c5yst8lm9qc` (`categoryImage_id`),
+  CONSTRAINT `FK1afrfu1f12s884c5yst8lm9qc` FOREIGN KEY (`categoryImage_id`) REFERENCES `filemodel` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- yemektarifiodev.category: ~5 rows (yaklaşık) tablosu için veriler indiriliyor
+DELETE FROM `category`;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` (`id`, `created`, `deleted`, `modified`, `nameEnglish`, `nameTurkish`, `categoryImage_id`) VALUES
+	(1, '2021-05-20 15:49:37', b'0', '2021-05-20 15:49:39', 'en', 'Çorba', 1),
+	(2, '2021-05-20 15:52:46', b'0', '2021-05-20 15:52:52', 'en', 'Sulu Yemek', 2),
+	(3, '2021-05-20 15:52:45', b'0', '2021-05-20 15:52:53', 'en', 'Pasta', 3),
+	(4, '2021-05-20 15:52:46', b'0', '2021-05-20 15:52:53', 'en', 'Kek', 4),
+	(5, '2021-05-20 15:52:47', b'0', '2021-05-20 15:52:54', 'en', 'İçecek', 5),
+	(6, '2021-05-20 15:52:49', b'0', '2021-05-20 15:52:57', 'en', 'Hamur İşi', 6),
+	(7, '2021-05-20 15:52:50', b'0', '2021-05-20 15:52:58', 'en', 'Kebab', 7),
+	(8, '2021-05-20 15:52:48', b'0', '2021-05-20 15:52:54', 'en', 'Dondurma', 8),
+	(9, '2021-05-20 15:52:47', b'0', '2021-05-20 15:52:55', 'en', 'Balık', 9),
+	(10, '2021-05-20 15:52:50', b'0', '2021-05-20 15:52:56', 'en', 'Mangal', 10),
+	(11, '2021-05-20 15:54:46', b'0', '2021-05-20 15:54:48', 'en', 'Kurabiye', 11),
+	(12, '2021-05-20 15:55:09', b'0', '2021-05-20 15:55:10', 'rn', 'Tuzlu', 12),
+	(13, '2021-05-20 16:02:27', b'0', '2021-05-20 16:02:29', 'en', 'Tatlı', 13);
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+
+-- tablo yapısı dökülüyor yemektarifiodev.comment
+CREATE TABLE IF NOT EXISTS `comment` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `deleted` bit(1) NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  `food_id` bigint NOT NULL,
+  `image_id` bigint DEFAULT NULL,
+  `user_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKd54g728ei0v96rkyhu20goe1e` (`food_id`),
+  KEY `FKqag5ftp1eejwuqfdu8pyram1o` (`image_id`),
+  KEY `FKhlbnnmiua9xpvfq8y1u1a15ie` (`user_id`),
+  CONSTRAINT `FKd54g728ei0v96rkyhu20goe1e` FOREIGN KEY (`food_id`) REFERENCES `food` (`id`),
+  CONSTRAINT `FKhlbnnmiua9xpvfq8y1u1a15ie` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FKqag5ftp1eejwuqfdu8pyram1o` FOREIGN KEY (`image_id`) REFERENCES `filemodel` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- yemektarifiodev.comment: ~55 rows (yaklaşık) tablosu için veriler indiriliyor
+DELETE FROM `comment`;
+/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+
+-- tablo yapısı dökülüyor yemektarifiodev.filemodel
+CREATE TABLE IF NOT EXISTS `filemodel` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `deleted` bit(1) NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- yemektarifiodev.filemodel: ~69 rows (yaklaşık) tablosu için veriler indiriliyor
+DELETE FROM `filemodel`;
+/*!40000 ALTER TABLE `filemodel` DISABLE KEYS */;
+INSERT INTO `filemodel` (`id`, `created`, `deleted`, `modified`, `name`, `url`) VALUES
+	(1, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', '88d3527f-e3f1-436a-ae2f-9fd233367b8c.jpg', '/api/files/downloadFile/88d3527f-e3f1-436a-ae2f-9fd233367b8c.jpg'),
+	(2, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', 'c2bcb911-9b85-4b3f-a210-789d30c52510.jpg', '/api/files/downloadFile/c2bcb911-9b85-4b3f-a210-789d30c52510.jpg'),
+	(3, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', '4b8f8d4a-1bb7-4783-a3f5-22dd4cdbea52.jpg', '/api/files/downloadFile/4b8f8d4a-1bb7-4783-a3f5-22dd4cdbea52.jpg'),
+	(4, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', '3a08135f-2f4b-45c4-a935-5b330972ff9d.jpg', '/api/files/downloadFile/3a08135f-2f4b-45c4-a935-5b330972ff9d.jpg'),
+	(5, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', 'affde4f4-eb51-4982-a6b4-b64b859edab5.jpg', '/api/files/downloadFile/affde4f4-eb51-4982-a6b4-b64b859edab5.jpg'),
+	(6, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', '864c6ce7-8c89-4e47-aec1-87158d042c9a.jpg', '/api/files/downloadFile/864c6ce7-8c89-4e47-aec1-87158d042c9a.jpg'),
+	(7, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', '02a0a48f-4b73-4fb8-8e2d-15c1eeb5f684.jpg', '/api/files/downloadFile/02a0a48f-4b73-4fb8-8e2d-15c1eeb5f684.jpg'),
+	(8, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', 'baa943c4-a02c-4ace-9c07-4cc269d0c20e.jpg', '/api/files/downloadFile/baa943c4-a02c-4ace-9c07-4cc269d0c20e.jpg'),
+	(9, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', 'f7b77a96-c772-430c-99e7-77a2b86c56f1.jpg', '/api/files/downloadFile/f7b77a96-c772-430c-99e7-77a2b86c56f1.jpg'),
+	(10, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', '49406ec7-ac42-487a-a402-71dcf1481c48.jpg', '/api/files/downloadFile/49406ec7-ac42-487a-a402-71dcf1481c48.jpg'),
+	(11, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', 'b458f805-7ec3-442e-96c6-2205aab28d43.jpg', '/api/files/downloadFile/b458f805-7ec3-442e-96c6-2205aab28d43.jpg'),
+	(12, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', 'b322b9c5-b322-446c-878b-27ef61c304d4.jpg', '/api/files/downloadFile/b322b9c5-b322-446c-878b-27ef61c304d4.jpg'),
+	(13, '2021-05-20 13:02:59', b'0', '2021-05-20 13:02:59', '42906054-0c3b-4533-8fc7-78843ec8aa5f.jpg', '/api/files/downloadFile/42906054-0c3b-4533-8fc7-78843ec8aa5f.jpg');
+/*!40000 ALTER TABLE `filemodel` ENABLE KEYS */;
+
+-- tablo yapısı dökülüyor yemektarifiodev.food
+CREATE TABLE IF NOT EXISTS `food` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `deleted` bit(1) NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `completedCount` bigint DEFAULT NULL,
+  `foodName` varchar(255) DEFAULT NULL,
+  `hardness` int NOT NULL,
+  `ingredients` varchar(255) DEFAULT NULL,
+  `personCount` int NOT NULL,
+  `prepTime` int NOT NULL,
+  `rankStar` int NOT NULL,
+  `recipe` varchar(255) DEFAULT NULL,
+  `image_id` bigint DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK4wdbeqi0p6pgvi6k7m4vyjh4i` (`image_id`),
+  KEY `FKmhsi01meegwq3s9wpwctq61q9` (`user_id`),
+  CONSTRAINT `FK4wdbeqi0p6pgvi6k7m4vyjh4i` FOREIGN KEY (`image_id`) REFERENCES `filemodel` (`id`),
+  CONSTRAINT `FKmhsi01meegwq3s9wpwctq61q9` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- yemektarifiodev.food: ~19 rows (yaklaşık) tablosu için veriler indiriliyor
+DELETE FROM `food`;
+/*!40000 ALTER TABLE `food` DISABLE KEYS */;
+/*!40000 ALTER TABLE `food` ENABLE KEYS */;
+
+-- tablo yapısı dökülüyor yemektarifiodev.food_categorylist
+CREATE TABLE IF NOT EXISTS `food_categorylist` (
+  `Food_id` bigint NOT NULL,
+  `categoryList_id` bigint NOT NULL,
+  KEY `FKruv8vfuhyn30c9iiedgqaff38` (`categoryList_id`),
+  KEY `FKd67qxfeev3p6vjv37fapnybm7` (`Food_id`),
+  CONSTRAINT `FKd67qxfeev3p6vjv37fapnybm7` FOREIGN KEY (`Food_id`) REFERENCES `food` (`id`),
+  CONSTRAINT `FKruv8vfuhyn30c9iiedgqaff38` FOREIGN KEY (`categoryList_id`) REFERENCES `category` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- yemektarifiodev.food_categorylist: ~13 rows (yaklaşık) tablosu için veriler indiriliyor
+DELETE FROM `food_categorylist`;
+/*!40000 ALTER TABLE `food_categorylist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `food_categorylist` ENABLE KEYS */;
+
+-- tablo yapısı dökülüyor yemektarifiodev.food_savedusers
+CREATE TABLE IF NOT EXISTS `food_savedusers` (
+  `Food_id` bigint NOT NULL,
+  `savedUsers_id` bigint NOT NULL,
+  KEY `FKb3yd4v8ifi610tugg8lttrlxm` (`savedUsers_id`),
+  KEY `FKrxlc51a18dah0s39wad77tcnq` (`Food_id`),
+  CONSTRAINT `FKb3yd4v8ifi610tugg8lttrlxm` FOREIGN KEY (`savedUsers_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FKrxlc51a18dah0s39wad77tcnq` FOREIGN KEY (`Food_id`) REFERENCES `food` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- yemektarifiodev.food_savedusers: ~13 rows (yaklaşık) tablosu için veriler indiriliyor
+DELETE FROM `food_savedusers`;
+/*!40000 ALTER TABLE `food_savedusers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `food_savedusers` ENABLE KEYS */;
+
+-- tablo yapısı dökülüyor yemektarifiodev.user
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `deleted` bit(1) NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `complaintCount` int NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `resetPassword` bit(1) NOT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  `surname` varchar(255) DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
+  `verificationCode` varchar(255) DEFAULT NULL,
+  `profilePhoto_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_e6gkqunxajvyxl5uctpl2vl2p` (`email`),
+  UNIQUE KEY `UK_jreodf78a7pl5qidfh43axdfb` (`username`),
+  KEY `FKc41qpwmujpuuse3xs8h2lqpo2` (`profilePhoto_id`),
+  CONSTRAINT `FKc41qpwmujpuuse3xs8h2lqpo2` FOREIGN KEY (`profilePhoto_id`) REFERENCES `filemodel` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- yemektarifiodev.user: ~9 rows (yaklaşık) tablosu için veriler indiriliyor
+DELETE FROM `user`;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`id`, `created`, `deleted`, `modified`, `complaintCount`, `email`, `name`, `password`, `resetPassword`, `role`, `surname`, `username`, `verificationCode`, `profilePhoto_id`) VALUES
+	(1, '2021-05-20 12:48:26', b'0', '2021-05-20 12:48:26', 0, 'admin', 'admin', '$2a$10$cWXnt9c61rjZPlCAl8Yk1edaHtcS4SvoX.O9tKZdvCa8OYyfxX8ZS', b'0', 'ADMIN', 'admin', 'admin', NULL, NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

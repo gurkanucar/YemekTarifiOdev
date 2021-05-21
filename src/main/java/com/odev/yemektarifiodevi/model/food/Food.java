@@ -1,6 +1,5 @@
 package com.odev.yemektarifiodevi.model.food;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.odev.yemektarifiodevi.model.BaseEntity;
 import com.odev.yemektarifiodevi.model.FileModel;
@@ -11,14 +10,17 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-
+import javax.validation.constraints.Size;
 @Data
 @Entity
 @Where(clause = "deleted = false")
 public class Food extends BaseEntity implements Serializable {
 
+    @Size(max = 300)
     private String foodName;
+    @Size(max = 4000)
     private String recipe;
+    @Size(max = 4000)
     private String ingredients;
 
     @ManyToMany(cascade = {CascadeType.MERGE})
