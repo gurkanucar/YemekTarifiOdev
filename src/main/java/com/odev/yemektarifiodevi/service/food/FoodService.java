@@ -17,9 +17,9 @@ public interface FoodService {
     ResponseEntity deleteById(Long id);
     ResponseEntity getFoodsByUserId(Long id);
     ResponseEntity getSavedRecipes(Long id);
-    ResponseEntity getSearchedFoods(Search search);
-    ResponseEntity getByCategory(Long id);
-    ResponseEntity getByName(String name);
+    ResponseEntity getSearchedFoods(Search search); // get by search model
+    ResponseEntity getSearchedFoods(Long id); // get by category
+    ResponseEntity getSearchedFoods(String name); // get by name
     ResponseEntity savedRecipeUpdate(Long userID,Long foodID);
 
 }

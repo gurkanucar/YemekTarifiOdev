@@ -125,7 +125,7 @@ public class FoodServiceImpl extends BaseService implements FoodService {
     }
 
     @Override
-    public ResponseEntity getByCategory(Long id) {
+    public ResponseEntity getSearchedFoods(Long id) {
         List<Category> categories = new ArrayList<>();
         Category category = categoryRepo.findById(id).orElse(null);
         if (category == null) {
@@ -136,7 +136,7 @@ public class FoodServiceImpl extends BaseService implements FoodService {
     }
 
     @Override
-    public ResponseEntity getByName(String name) {
+    public ResponseEntity getSearchedFoods(String name) {
         return new ResponseEntity(foodRepo.findAllByFoodNameContaining(name), HttpStatus.OK);
     }
 
