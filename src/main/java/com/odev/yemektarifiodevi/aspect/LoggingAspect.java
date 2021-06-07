@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import org.slf4j.Logger;
@@ -33,9 +34,9 @@ public class LoggingAspect {
 
         logger.info("method invoked"+className+" : "+methodName+"()"+"arguments : "+mapper.writeValueAsString(array));
 
-        Object object=proceedingJoinPoint.proceed();
+        ResponseEntity<Object> object= (ResponseEntity<Object>) proceedingJoinPoint.proceed();
 
-        logger.info(className+" : "+methodName+"()"+"Response : "+mapper.writeValueAsString(object));
+        logger.info(className+" : "+methodName+"()"+"Response : "+mapper.writeValueAsString(object.getBody()));
 
         return object;
     }
