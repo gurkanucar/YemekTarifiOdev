@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 DELETE FROM `category`;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` (`id`, `created`, `deleted`, `modified`, `nameEnglish`, `nameTurkish`, `categoryImage_id`) VALUES
-	(1, '2021-05-20 15:49:37', b'0', '2021-05-20 15:49:39', 'en', ' Çorba Çorba', 1),
+	(1, '2021-05-20 15:49:37', b'0', '2021-05-20 15:49:39', 'en', 'Çorba', 1),
 	(2, '2021-05-20 15:52:46', b'0', '2021-05-20 15:52:52', 'en', 'Sulu Yemek', 2),
 	(3, '2021-05-20 15:52:45', b'0', '2021-05-20 15:52:53', 'en', 'Pasta', 3),
 	(4, '2021-05-20 15:52:46', b'0', '2021-05-20 15:52:53', 'en', 'Kek', 4),
@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `UK_jreodf78a7pl5qidfh43axdfb` (`username`),
   KEY `FKc41qpwmujpuuse3xs8h2lqpo2` (`profilePhoto_id`),
   CONSTRAINT `FKc41qpwmujpuuse3xs8h2lqpo2` FOREIGN KEY (`profilePhoto_id`) REFERENCES `filemodel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- yemektarifiodev.user: ~1 rows (yaklaşık) tablosu için veriler indiriliyor
 DELETE FROM `user`;
@@ -268,7 +268,8 @@ INSERT INTO `user` (`id`, `created`, `deleted`, `modified`, `complaintCount`, `e
 	(1, '2021-05-20 12:48:26', b'0', '2021-05-20 20:23:18', 0, 'admin', 'admin', '$2a$10$cWXnt9c61rjZPlCAl8Yk1edaHtcS4SvoX.O9tKZdvCa8OYyfxX8ZS', b'0', 'ADMIN', 'admin', 'admin', NULL, 19),
 	(2, '2021-06-07 19:36:24', b'0', '2021-06-07 19:54:40', 0, 'ban_user', 'mehmet', '$2a$10$ezM4OHAwqhBS7Xj8DQstRuzHbmLU5bFtfLhmXYZE0Tp5QH8C8L0xa', b'0', 'USER', 'ban_user', 'ban_user', NULL, 25),
 	(3, '2021-06-07 19:39:33', b'0', '2021-06-07 19:41:30', 0, 'mehmet', 'mehmet', '$2a$10$ezM4OHAwqhBS7Xj8DQstRuzHbmLU5bFtfLhmXYZE0Tp5QH8C8L0xa', b'0', 'USER', 'mehmet', 'mehmet', NULL, 23),
-	(4, '2021-06-07 19:56:20', b'0', '2021-06-07 20:01:20', 0, 'ahmet', 'ahmet', '$2a$10$zNLNI.fMsOnbpNtv6y.uLOc9HlVAh71v29buCgS6jzqg38yfec1Nq', b'0', 'USER', 'ahmet', 'ahmet', NULL, 26);
+	(4, '2021-06-07 19:56:20', b'0', '2021-06-07 20:01:20', 0, 'ahmet', 'ahmet', '$2a$10$zNLNI.fMsOnbpNtv6y.uLOc9HlVAh71v29buCgS6jzqg38yfec1Nq', b'0', 'USER', 'ahmet', 'ahmet', NULL, 26),
+	(6, '2021-06-07 20:22:54', b'0', '2021-06-07 20:22:54', 0, 'moderator', 'moderator', '$2a$10$DdCDVLjjQPDOUUcsoOFzMeTTBZwC7o7VWVXe6GkE2kac9Zc4VttGy', b'0', 'MODERATOR', 'moderator', 'moderator', NULL, NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
