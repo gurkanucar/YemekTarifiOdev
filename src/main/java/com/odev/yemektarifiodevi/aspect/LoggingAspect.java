@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 @Component
 public class LoggingAspect {
 
-    Logger logger= LoggerFactory.getLogger(LoggingAspect.class);
+   /* Logger logger= LoggerFactory.getLogger(LoggingAspect.class);
 
     @Pointcut(value = "execution(* com.odev.yemektarifiodevi.controller.*.*(..))")
     public void myPointcut(){
@@ -40,6 +40,6 @@ public class LoggingAspect {
 
         return object;
     }
-
+*/
 
 }
