@@ -36,7 +36,7 @@ public class LoggingAspect {
 
         ResponseEntity<Object> object= (ResponseEntity<Object>) proceedingJoinPoint.proceed();
 
-        logger.info(className+" : "+methodName+"()"+"Response : "+mapper.writeValueAsString(object));
+        logger.info(className+" : "+methodName+"()"+"Response : "+mapper.writeValueAsString(object.getBody()));
 
         return object;
     }
