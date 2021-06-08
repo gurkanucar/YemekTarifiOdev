@@ -19,6 +19,7 @@ public class LoggingAspect {
 
     Logger logger= LoggerFactory.getLogger(LoggingAspect.class);
 
+
     @Pointcut(value = "execution(* com.odev.yemektarifiodevi.controller.*.*(..))")
     public void myPointcut(){
 
@@ -32,13 +33,25 @@ public class LoggingAspect {
         String className=proceedingJoinPoint.getTarget().toString();
         Object[] array=proceedingJoinPoint.getArgs();
 
-        logger.info("method invoked"+className+" : "+methodName+"()"+"arguments : "+mapper.writeValueAsString(array));
+        if(methodName.equals("creteToken")){
+            logger.info("method invoked "+className+" : "+methodName+"()"+" arguments : "+mapper.writeValueAsString(array));
 
-        ResponseEntity<Object> object= (ResponseEntity<Object>) proceedingJoinPoint.proceed();
+            String  object= (String) proceedingJoinPoint.proceed();
 
-        logger.info(className+" : "+methodName+"()"+"Response : "+mapper.writeValueAsString(object.getBody()));
+            logger.info(className+" : "+methodName+"()"+" Response : "+object);
 
-        return object;
+            return object;
+        }else{
+            logger.info("method invoked "+className+" : "+methodName+"()"+" arguments : "+mapper.writeValueAsString(array));
+
+            ResponseEntity<Object> object= (ResponseEntity<Object>) proceedingJoinPoint.proceed();
+
+            logger.info(className+" : "+methodName+"()"+" Response : "+mapper.writeValueAsString(object.getBody()));
+
+            return object;
+        }
+
+
     }
 
 
